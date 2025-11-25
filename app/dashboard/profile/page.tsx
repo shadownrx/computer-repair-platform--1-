@@ -1,7 +1,9 @@
 import { createClient } from "@/lib/supabase/server"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ProfileForm } from "@/components/profile-form"
-import { User } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { User, ArrowLeft } from "lucide-react"
+import Link from "next/link"
 
 export default async function ProfilePage() {
   const supabase = await createClient()
@@ -16,9 +18,16 @@ export default async function ProfilePage() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold text-slate-900">Mi Perfil</h1>
-        <p className="text-slate-600">Administra tu información personal</p>
+      <div className="flex items-center gap-4">
+        <Button variant="ghost" size="icon" asChild>
+          <Link href="/dashboard">
+            <ArrowLeft className="h-5 w-5" aria-label="Volver al dashboard" />
+          </Link>
+        </Button>
+        <div>
+          <h1 className="text-3xl font-bold text-slate-900">Mi Perfil</h1>
+          <p className="text-slate-600">Administra tu información personal</p>
+        </div>
       </div>
 
       <Card>

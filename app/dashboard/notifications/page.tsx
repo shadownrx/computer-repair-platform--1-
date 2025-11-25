@@ -1,8 +1,10 @@
 import { createClient } from "@/lib/supabase/server"
 import { Card, CardContent } from "@/components/ui/card"
-import { Bell } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Bell, ArrowLeft } from "lucide-react"
 import { NotificationItem } from "@/components/notification-item"
 import { MarkAllReadButton } from "@/components/mark-all-read-button"
+import Link from "next/link"
 
 export default async function NotificationsPage() {
   const supabase = await createClient()
@@ -24,13 +26,20 @@ export default async function NotificationsPage() {
   return (
     <div className="mx-auto max-w-4xl space-y-6">
       <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-slate-900">Notificaciones</h1>
-          <p className="text-slate-600">
-            {unreadCount > 0
-              ? `Tienes ${unreadCount} notificación${unreadCount > 1 ? "es" : ""} sin leer`
-              : "No tienes notificaciones sin leer"}
-          </p>
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" size="icon" asChild>
+            <Link href="/dashboard">
+              <ArrowLeft className="h-5 w-5" aria-label="Volver al dashboard" />
+            </Link>
+          </Button>
+          <div>
+            <h1 className="text-3xl font-bold text-slate-900">Notificaciones</h1>
+            <p className="text-slate-600">
+              {unreadCount > 0
+                ? `Tienes ${unreadCount} notificación${unreadCount > 1 ? "es" : ""} sin leer`
+                : "No tienes notificaciones sin leer"}
+            </p>
+          </div>
         </div>
         {unreadCount > 0 && <MarkAllReadButton />}
       </div>

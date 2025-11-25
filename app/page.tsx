@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Wrench, Shield, Bell, Search, ArrowRight, CheckCircle, Zap } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
+import { HomeHeader } from "@/components/home-header"
 
 const container = {
   hidden: { opacity: 0 },
@@ -23,6 +24,7 @@ const item = {
 export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col">
+      <HomeHeader />
       {/* Hero Section */}
       <section className="relative flex flex-1 items-center justify-center overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-purple-800 px-6 py-20 text-white">
         <div className="absolute inset-0 overflow-hidden">
@@ -253,9 +255,55 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200 bg-white px-6 py-8">
-        <div className="mx-auto max-w-6xl text-center text-sm text-slate-600">
-          <p>&copy; 2025 RepairTech. Todos los derechos reservados.</p>
+      <footer className="border-t border-slate-200 bg-white dark:bg-slate-950 px-6 py-12">
+        <div className="mx-auto max-w-6xl">
+          <div className="grid gap-8 md:grid-cols-4">
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
+                  <Wrench className="h-5 w-5 text-white" aria-hidden="true" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 dark:text-slate-100">RepairTech</h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-400">Gestión de reparaciones</p>
+                </div>
+              </div>
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                La solución completa para gestionar tu taller de reparaciones de forma profesional y eficiente.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Enlaces</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <Link href="/track" className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors">
+                    Rastrear ticket
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/auth/login" className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors">
+                    Iniciar sesión
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/auth/register" className="text-slate-600 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400 transition-colors">
+                    Registrarse
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-slate-900 dark:text-slate-100 mb-4">Soporte</h4>
+              <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                <li>Documentación</li>
+                <li>Ayuda</li>
+                <li>Contacto</li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-8 border-t border-slate-200 dark:border-slate-800 pt-8 text-center text-sm text-slate-600 dark:text-slate-400">
+            <p>&copy; 2025 RepairTech. Todos los derechos reservados.</p>
+          </div>
         </div>
       </footer>
     </div>

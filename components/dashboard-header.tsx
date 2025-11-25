@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Bell, User, LogOut, Wrench, Settings } from "lucide-react"
+import { Bell, User as UserIcon, LogOut, Wrench, Settings, Home, ArrowLeft } from "lucide-react"
 import { createClient } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
@@ -18,9 +18,12 @@ import { useEffect, useState } from "react"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { motion } from "framer-motion"
 
+import type { User } from "@supabase/supabase-js"
+import type { Profile } from "@/types/profile"
+
 interface DashboardHeaderProps {
-  user: any
-  profile: any
+  user: User
+  profile: Profile | null
 }
 
 export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
@@ -69,7 +72,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
 
   const handleLogout = async () => {
     await supabase.auth.signOut()
-    router.push("/auth/login")
+    router.push("/")
     router.refresh()
   }
 
@@ -87,12 +90,17 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
             whileTap={{ scale: 0.95 }}
             className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600 dark:bg-blue-500"
           >
-            <Wrench className="h-5 w-5 text-white" />
+            <Wrench className="h-5 w-5 text-white" aria-hidden="true" />
           </motion.div>
-          <div>
+          <Link href="/dashboard" className="hover:opacity-80 transition-opacity">
             <h1 className="text-lg font-bold">RepairTech</h1>
             <p className="text-xs text-muted-foreground">Gestión de reparaciones</p>
-          </div>
+          </Link>
+          <Button variant="ghost" size="icon" asChild className="ml-2">
+            <Link href="/">
+              <Home className="h-4 w-4" aria-label="Ir al inicio" />
+            </Link>
+          </Button>
         </div>
 
         <div className="flex items-center gap-2">
@@ -119,7 +127,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="flex items-center gap-2">
                 <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
-                  <User className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                  <UserIcon className="h-4 w-4 text-blue-600 dark:text-blue-400" />
                 </div>
                 <span className="hidden text-sm font-medium md:inline-block">{profile?.full_name || "Usuario"}</span>
               </Button>
@@ -134,7 +142,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <Link href="/dashboard/profile">
-                  <User className="mr-2 h-4 w-4" />
+                  <UserIcon className="mr-2 h-4 w-4" />
                   Perfil
                 </Link>
               </DropdownMenuItem>
@@ -145,7 +153,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleLogout} className="text-red-600 dark:text-red-400">
+              <DropdownMenuItem onClick={handleLogout} className="text-red-600 dark:text-red-400 focus:text-red-600 focus:bg-red-50 dark:focus:bg-red-950">
                 <LogOut className="mr-2 h-4 w-4" />
                 Cerrar sesión
               </DropdownMenuItem>
