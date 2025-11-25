@@ -7,8 +7,10 @@ import { Laptop, Calendar, DollarSign } from "lucide-react"
 import Link from "next/link"
 import { motion } from "framer-motion"
 
+import type { Computer } from "@/types/computer"
+
 interface ComputerCardProps {
-  computer: any
+  computer: Computer
 }
 
 export function ComputerCard({ computer }: ComputerCardProps) {
